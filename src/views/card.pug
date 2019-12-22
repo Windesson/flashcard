@@ -1,0 +1,13 @@
+extends layout.pug
+
+block content
+  section#content 
+    ul
+      each color in card.getColor()  
+        li= color
+    h2= card.prompt
+    if card.hint
+      p
+        i Hint: #{card.hint}
+    else
+      p (There is no hint.)

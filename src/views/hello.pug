@@ -1,0 +1,7 @@
+extends layout.pug
+
+block content
+     form(action='/hello', method='POST')
+       label(for='username') Please enter your name: 
+       input#username.form-control(type='text', placeholder='first and last' name='username')
+       button.btn.btn-primary(type='submit') Sign up
