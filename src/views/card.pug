@@ -5,9 +5,22 @@ block content
     ul
       each color in card.getColor()  
         li= color
-    h2= card.prompt
-    if card.hint
+    h2= card.question
+
+    if side === 'answer'
       p
-        i Hint: #{card.hint}
+       i= card.answer
+      a(href=`${card.id}`) Question
     else
-      p (There is no hint.)
+      if card.hint
+        p
+          i Hint: #{card.hint}
+      else
+        p (There is no hint.)       
+      a(href=`${card.id}?side=answer`) Answer
+
+    br
+    a(href='/cards') Next card
+
+      
+    

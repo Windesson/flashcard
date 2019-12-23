@@ -1,7 +1,9 @@
 class Card {
-    constructor(phrase, hint) {
-        this.prompt = phrase;
+    constructor(id, phrase, hint, answer) {
+        this.id = id;
+        this.question = phrase;
         this.hint = hint;
+        this.answer = answer;
     }
 
     getColor() {

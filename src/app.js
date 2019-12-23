@@ -1,44 +1,29 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser')
-const Card = require('./models/card');
+const cookieParser = require('cookie-parser')
+const mainRoutes = require("./routes");
+const cardRoutes = require("./routes/cards");
 
 const app = express();
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(cookieParser())
+app.use(cookieParser());
+app.use(mainRoutes);
+app.use('/cards', cardRoutes);
 
 app.locals.siteName = "Flash Cards";
 
 app.set('view engine', 'pug');
 
-app.get('/', (req, res) => {
-    const username = req.cookies.username;
-    if(!username) res.redirect('/hello');
-    res.render("index",{username});
+app.use((req, res, next) => {
+    const err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
-app.get('/cards', (req, res) => {
-    const card = new Card(
-        "this holds the prompt data from my class",
-    );
-    res.render("card", {card});
-});
-
-app.get('/hello', (req, res) => {
-    const username = req.cookies.username;
-    if(username) res.redirect('/');
-    res.render('hello');
-});
-
-app.post('/hello', (req, res) => {
-    //res.json(req.body);
-    res.cookie('username',req.body.username)
-    res.redirect('/');
-});
-
-app.post('/goodbye', (req, res) => {
-    res.clearCookie('username')
-    res.redirect('/hello');
+app.use((err, req, res, next) => {
+    res.locals.error = err;
+    res.status(err.status);
+    res.render('error');
 });
 
 app.listen(3000, () => {
