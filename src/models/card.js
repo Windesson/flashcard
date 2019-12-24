@@ -16,6 +16,14 @@ class Card {
             'purple'
           ];
     }
+
+    getText(sideToShow){
+        return sideToShow.toLowerCase() === 'answer'? this.answer : this.question;
+    }
+
+    getFlip(currentSide){
+        return currentSide.toLowerCase() === 'answer'? "question" : "answer";
+    }
 }
 
 module.exports = Card;

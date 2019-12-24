@@ -5,6 +5,7 @@ const mainRoutes = require("./routes");
 const cardRoutes = require("./routes/cards");
 
 const app = express();
+app.use('/static', express.static('public'))
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(mainRoutes);
