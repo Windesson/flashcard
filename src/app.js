@@ -8,12 +8,14 @@ const app = express();
 app.use('/static', express.static('public'))
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use(mainRoutes);
-app.use('/cards', cardRoutes);
 
 app.locals.siteName = "Flash Cards";
 
 app.set('view engine', 'pug');
+
+app.use(mainRoutes);
+
+app.use('/cards', cardRoutes);
 
 app.use((req, res, next) => {
     const err = new Error('Not Found');
